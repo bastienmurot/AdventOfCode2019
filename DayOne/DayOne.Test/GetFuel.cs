@@ -33,7 +33,7 @@ namespace DayOne.Test
         public void GivenAMassOfFourteenShouldReturnTwoUnitsOfFuel()
         {
             // Arrange
-            int mass = 12;
+            int mass = 14;
 
             // Act
             int result = Calculator.GetFuel(mass);
@@ -43,7 +43,7 @@ namespace DayOne.Test
         }
 
         [Fact]
-        public void GivenAMassOf1969ShouldReturn654UnitsOfFuel()
+        public void GivenAMassOf1969ShouldReturns966UnitsOfFuel()
         {
             // Arrange
             int mass = 1969;
@@ -52,11 +52,11 @@ namespace DayOne.Test
             int result = Calculator.GetFuel(mass);
 
             // Assert
-            Assert.Equal(654, result);
+            Assert.Equal(966, result);
         }
 
         [Fact]
-        public void GivenAMassOf100756ShouldReturn33583UnitsOfFuel()
+        public void GivenAMassOf100756ShouldReturns50346UnitsOfFuel()
         {
             // Arrange
             int mass = 100756;
@@ -65,7 +65,7 @@ namespace DayOne.Test
             int result = Calculator.GetFuel(mass);
 
             // Assert
-            Assert.Equal(33583, result);
+            Assert.Equal(50346, result);
         }
     }
 }
