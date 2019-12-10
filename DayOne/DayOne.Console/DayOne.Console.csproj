@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="intcode.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="moduleList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

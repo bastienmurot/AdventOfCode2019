@@ -1,61 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DayOne
+﻿namespace DayOne
 {
+    using System.Linq;
+
     public class Intcode
     {
-        private readonly string _intcode;
-        private List<int[]> _opcodeInstructions;
-        private int _lastValue = 0;
+        private readonly int[] _intcodes;
 
         private const int ADD_OPCODE = 1;
+        private const int MULTIPLY_OPCODE = 2;
         private const int PROGRAM_END = 99;
 
         public Intcode(string intcode)
         {
-            _intcode = intcode;
-
-            BuildOpcodeInstructions();
-        }
-
-        private void BuildOpcodeInstructions()
-        {
-            var opcodes = _intcode.Split(',');
-
-            _opcodeInstructions = new List<int[]>();
-
-            var instructionsSet = new List<int>();
-
-            foreach(var opcode in opcodes)
-            {
-                var numericOpcode = int.Parse(opcode);
-                if (numericOpcode == PROGRAM_END)
-                {
-                    instructionsSet.Add(PROGRAM_END);
-                    _opcodeInstructions.Add(instructionsSet.ToArray());
-                }
-            }
+            _intcodes = intcode.Split(',').Select(c => int.Parse(c)).ToArray();
         }
 
         public int Compute()
         {
-            int currentPointer = 0;
-            int currentSetIndex = 0;
+            int currentIndex = 0;
+            int lastValue = 0;
 
-            int[] currentSet = _opcodeInstructions[currentSetIndex];
-
-            while(currentSet.Length != 1 && currentSet.First() != PROGRAM_END)
+            while (_intcodes[currentIndex] != PROGRAM_END)
             {
-                if (currentSet[0] == ADD_OPCODE)
+                if (_intcodes[currentIndex] == ADD_OPCODE)
                 {
-
+                    lastValue = _intcodes[_intcodes[currentIndex + 1]] + _intcodes[_intcodes[currentIndex + 2]];
+                    _intcodes[_intcodes[currentIndex + 3]] = lastValue;
                 }
+                if (_intcodes[currentIndex] == MULTIPLY_OPCODE)
+                {
+                    lastValue = _intcodes[_intcodes[currentIndex + 1]] * _intcodes[_intcodes[currentIndex + 2]];
+                    _intcodes[_intcodes[currentIndex + 3]] = lastValue;
+                }
+
+                currentIndex += 4;
             }
 
-            return _lastValue;
+            return lastValue;
         }
     }
 }
