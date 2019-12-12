@@ -15,7 +15,11 @@
 
             lines = System.IO.File.ReadAllLines(@"intcode.txt");
 
-            Intcode intcode = new Intcode(lines.First());
+            int[] intcodes = lines.First().Split(',').Select(c => int.Parse(c)).ToArray();
+            intcodes[1] = 12;
+            intcodes[2] = 2;
+
+            Intcode intcode = new Intcode(intcodes);
 
             Console.WriteLine($"Intcode: {intcode.Compute()}");
 

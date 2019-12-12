@@ -1,7 +1,5 @@
 ﻿namespace DayOne
 {
-    using System.Linq;
-
     public class Intcode
     {
         private readonly int[] _intcodes;
@@ -10,9 +8,9 @@
         private const int MULTIPLY_OPCODE = 2;
         private const int PROGRAM_END = 99;
 
-        public Intcode(string intcode)
+        public Intcode(int[] intcode)
         {
-            _intcodes = intcode.Split(',').Select(c => int.Parse(c)).ToArray();
+            _intcodes = intcode;
         }
 
         public int Compute()
