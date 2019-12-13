@@ -19,9 +19,27 @@
             intcodes[1] = 12;
             intcodes[2] = 2;
 
-            Intcode intcode = new Intcode(intcodes);
+            var intcode = new Intcode(intcodes);
 
             Console.WriteLine($"Intcode: {intcode.Compute()}");
+
+            for (var i = 0; i <= 99; i++)
+            {
+                for (var j = 0; j <= 99; j++)
+                {
+                    intcode.Reset();
+                    intcodes[1] = i;
+                    intcodes[2] = j;
+
+                    int output = intcode.Compute();
+                    if (output == 19690720)
+                    {
+                        int nounVerb = 100 * i + j;
+                        Console.WriteLine($"Noun + Verb: {nounVerb}");
+                        break;
+                    }
+                }
+            }
 
             Console.ReadLine();
         }

@@ -1,8 +1,11 @@
-﻿namespace DayOne
+﻿using System;
+
+namespace DayOne
 {
     public class Intcode
     {
         private readonly int[] _intcodes;
+        private int[] _originalIntCode;
 
         private const int ADD_OPCODE = 1;
         private const int MULTIPLY_OPCODE = 2;
@@ -11,6 +14,8 @@
         public Intcode(int[] intcode)
         {
             _intcodes = intcode;
+            _originalIntCode = new int[intcode.Length];
+            Array.Copy(intcode, _originalIntCode, intcode.Length);
         }
 
         public int Compute()
@@ -35,6 +40,11 @@
             }
 
             return lastValue;
+        }
+
+        public void Reset()
+        {
+            Array.Copy(_originalIntCode, _intcodes, _originalIntCode.Length);
         }
     }
 }
