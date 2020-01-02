@@ -7,7 +7,9 @@
         [Fact]
         public void ItExists()
         {
-            var intcode = new Intcode("1,0,0,3,99");
+            int[] intcodes = new int[] { 1, 0, 0, 3, 99 };
+
+            var intcode = new Intcode(intcodes);
             int result = intcode.Compute();
         }
 
@@ -15,7 +17,8 @@
         public void GivenAnEmptyOpcodeSetShouldReturnValuesOfZero()
         {
             // Arrange
-            var intcode = new Intcode("99");
+            int[] intcodes = new int[] { 99 };
+            var intcode = new Intcode(intcodes);
 
             // Act
             int result = intcode.Compute();
@@ -28,7 +31,8 @@
         public void GivenAnAddSetOfOpcodeShouldReturnValuesOfTwo()
         {
             // Arrange
-            var intcode = new Intcode("1, 0, 0, 3, 99");
+            int[] intcodes = new int[] { 1, 0, 0, 3, 99 };
+            var intcode = new Intcode(intcodes);
 
             // Act
             int result = intcode.Compute();
@@ -41,7 +45,8 @@
         public void GivenAnAddComplexSetOfOpcodeShouldReturnValuesOf3500()
         {
             // Arrange
-            var intcode = new Intcode("1,9,10,3,2,3,11,0,99,30,40,50");
+            int[] intcodes = new int[] { 1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50 };
+            var intcode = new Intcode(intcodes);
 
             // Act
             int result = intcode.Compute();
