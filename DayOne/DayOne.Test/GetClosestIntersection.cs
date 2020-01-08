@@ -21,7 +21,7 @@
         public void GivenARightWithOneUnitDirectionShouldReturnOneElementInList()
         {
             // Arrange
-            IEnumerable<string> moves = new List<string> { "R1"};
+            IEnumerable<string> moves = new List<string> { "R1" };
             var path = new Path(moves);
 
             // Act
@@ -29,7 +29,24 @@
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal((0, 1), result.First());
+            Assert.Single(result);
+            Assert.Equal((1, 0), result.First());
+        }
+
+        [Fact]
+        public void GivenARightWithTwoUnitDirectionShouldReturnTwoElementInList()
+        {
+            // Arrange
+            IEnumerable<string> moves = new List<string> { "R2" };
+            var path = new Path(moves);
+
+            // Act
+            List<(int, int)> result = path.Build().ToList();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count());
+            Assert.Equal((1, 0), result[0]);
         }
     }
 }
