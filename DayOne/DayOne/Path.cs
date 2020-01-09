@@ -20,10 +20,26 @@
 
             foreach(string move in _moves)
             {
+                string direction = move.Substring(0, 1);
                 string length = move.Substring(1, move.Length - 1);
                 for (int i = 0; i < int.Parse(length); i++)
                 {
-                    currentX += 1;
+                    switch (direction)
+                    {
+                        case "R":
+                            currentX += 1;
+                            break;
+                        case "L":
+                            currentX -= 1;
+                            break;
+                        case "U":
+                            currentY += 1;
+                            break;
+                        case "D":
+                            currentY -= 1;
+                            break;
+                    }
+                    
                     path.Add((currentX, currentY));
                 }
             }
