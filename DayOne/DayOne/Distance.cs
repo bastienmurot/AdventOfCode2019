@@ -17,14 +17,14 @@
 
         public int GetDistanceFromNearestIntersection()
         {
-            IEnumerable<(int, int)> intersections = _firstMoves.Where(m => _secondMoves.Contains(m));
+            IEnumerable<(int, int)> intersections = _firstMoves.Intersect(_secondMoves);
 
             int distance = 0;
 
             foreach (var intersection in intersections)
             {
                 int tempDistance = intersection.Item1 + intersection.Item2;
-                if (tempDistance < distance)
+                if (distance == 0 || tempDistance < distance)
                 {
                     distance = tempDistance;
                 }

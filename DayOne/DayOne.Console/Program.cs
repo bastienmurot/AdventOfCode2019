@@ -7,19 +7,11 @@
     {
         static void Main(string[] args)
         {
-            string[] lines = System.IO.File.ReadAllLines(@"moduleList.txt");
-
-            decimal sum = lines.Sum(l => Calculator.GetFuel(int.Parse(l)));
+            decimal sum = ComputeModuleSum();
 
             Console.WriteLine($"Module sum: {sum}");
-
-            lines = System.IO.File.ReadAllLines(@"intcode.txt");
-
-            int[] intcodes = lines.First().Split(',').Select(c => int.Parse(c)).ToArray();
-            intcodes[1] = 12;
-            intcodes[2] = 2;
-
-            var intcode = new Intcode(intcodes);
+            
+            Intcode intcode = ComputeIntCode();
 
             Console.WriteLine($"Intcode: {intcode.Compute()}");
 
@@ -28,8 +20,8 @@
                 for (var j = 0; j <= 99; j++)
                 {
                     intcode.Reset();
-                    intcodes[1] = i;
-                    intcodes[2] = j;
+                    intcode.Intcodes[1] = i;
+                    intcode.Intcodes[2] = j;
 
                     int output = intcode.Compute();
                     if (output == 19690720)
@@ -41,7 +33,41 @@
                 }
             }
 
+            int closestIntersection = ComputeClosestIntersection();
+
+            Console.WriteLine($"Closest intersection: {closestIntersection}");
+
             Console.ReadLine();
+        }
+
+        private static Intcode ComputeIntCode()
+        {
+            string[] lines = System.IO.File.ReadAllLines(@"intcode.txt");
+
+            int[] intcodes = lines.First().Split(',').Select(c => int.Parse(c)).ToArray();
+            intcodes[1] = 12;
+            intcodes[2] = 2;
+
+            return new Intcode(intcodes);
+        }
+
+        private static decimal ComputeModuleSum()
+        {
+            string[] lines = System.IO.File.ReadAllLines(@"moduleList.txt");
+
+            return lines.Sum(l => Calculator.GetFuel(int.Parse(l)));
+        }
+
+        private static int ComputeClosestIntersection()
+        {
+            string[] lines = System.IO.File.ReadAllLines(@"crossedwires.txt");
+
+            var pathOne = new Path(lines[0].Split(','));
+            var pathTwo = new Path(lines[1].Split(','));
+
+            var distance = new Distance(pathOne.Build(), pathTwo.Build());
+
+            return distance.GetDistanceFromNearestIntersection();
         }
     }
 }

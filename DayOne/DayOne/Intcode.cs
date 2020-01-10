@@ -18,22 +18,24 @@ namespace DayOne
             Array.Copy(intcode, _originalIntCode, intcode.Length);
         }
 
+        public int[] Intcodes => _intcodes;
+
         public int Compute()
         {
             int currentIndex = 0;
             int lastValue = 0;
 
-            while (_intcodes[currentIndex] != PROGRAM_END)
+            while (Intcodes[currentIndex] != PROGRAM_END)
             {
-                if (_intcodes[currentIndex] == ADD_OPCODE)
+                if (Intcodes[currentIndex] == ADD_OPCODE)
                 {
-                    lastValue = _intcodes[_intcodes[currentIndex + 1]] + _intcodes[_intcodes[currentIndex + 2]];
-                    _intcodes[_intcodes[currentIndex + 3]] = lastValue;
+                    lastValue = Intcodes[Intcodes[currentIndex + 1]] + Intcodes[Intcodes[currentIndex + 2]];
+                    Intcodes[Intcodes[currentIndex + 3]] = lastValue;
                 }
-                if (_intcodes[currentIndex] == MULTIPLY_OPCODE)
+                if (Intcodes[currentIndex] == MULTIPLY_OPCODE)
                 {
-                    lastValue = _intcodes[_intcodes[currentIndex + 1]] * _intcodes[_intcodes[currentIndex + 2]];
-                    _intcodes[_intcodes[currentIndex + 3]] = lastValue;
+                    lastValue = Intcodes[Intcodes[currentIndex + 1]] * Intcodes[Intcodes[currentIndex + 2]];
+                    Intcodes[Intcodes[currentIndex + 3]] = lastValue;
                 }
 
                 currentIndex += 4;
@@ -44,7 +46,7 @@ namespace DayOne
 
         public void Reset()
         {
-            Array.Copy(_originalIntCode, _intcodes, _originalIntCode.Length);
+            Array.Copy(_originalIntCode, Intcodes, _originalIntCode.Length);
         }
     }
 }

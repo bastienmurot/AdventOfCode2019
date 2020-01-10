@@ -24,18 +24,21 @@
                 string length = move.Substring(1, move.Length - 1);
                 for (int i = 0; i < int.Parse(length); i++)
                 {
+
                     switch (direction)
                     {
                         case "R":
                             currentX += 1;
                             break;
                         case "L":
+                            if (i > 0 && currentX == 1) break;
                             currentX -= 1;
                             break;
                         case "U":
                             currentY += 1;
                             break;
                         case "D":
+                            if (i > 0 && currentY == 1) break;
                             currentY -= 1;
                             break;
                     }
